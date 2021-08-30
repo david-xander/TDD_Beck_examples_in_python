@@ -3,10 +3,6 @@
 class Money:
     
     amount = 0
-
-    def __init__(self, amount, *args, **kwargs):
-        super(Money, self).__init__(*args, **kwargs)
-        self.amount = amount
     
     def __eq__(self, other) -> bool:
         return self.equals(other)
@@ -17,6 +13,9 @@ class Money:
         return self.amount == object.amount and \
             type(a) == type(b)
 
+    def currency(self):
+        pass  
+
     @staticmethod
     def dollar(amount):
         return Dollar(amount)
@@ -26,9 +25,27 @@ class Money:
         return Franc(amount)
 
 class Dollar(Money):
-    def times(self, multiplier):
-        return Dollar(self.amount * multiplier) 
+    currency = "USD"
 
-class Franc(Money):     
+    def __init__(self, amount, *args, **kwargs):
+        super(Dollar, self).__init__(*args, **kwargs)
+        self.amount = amount
+    
     def times(self, multiplier):
-        return Franc(self.amount * multiplier)    
+        return Dollar(self.amount * multiplier)
+
+    def currency(self):
+        return self.currency         
+
+class Franc(Money): 
+    currency = "CHF"
+
+    def __init__(self, amount, *args, **kwargs):
+        super(Franc, self).__init__(*args, **kwargs)
+        self.amount = amount
+        
+    def times(self, multiplier):
+        return Franc(self.amount * multiplier)
+    
+    def currency(self):
+        return self.currency      
