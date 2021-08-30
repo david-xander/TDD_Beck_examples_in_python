@@ -12,9 +12,6 @@ class Money:
     def __eq__(self, other) -> bool:
         return self.equals(other)
 
-    def dollar(self, amount):
-        return Dollar(amount)
-
     def equals(self, object) -> bool:
         a = self
         b = object

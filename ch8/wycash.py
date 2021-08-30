@@ -3,17 +3,13 @@
 class Money:
     
     amount = 0
-    
-    def __init__(self, input, *args, **kwargs):
+
+    def __init__(self, amount, *args, **kwargs):
         super(Money, self).__init__(*args, **kwargs)
-        self.amount = input
+        self.amount = amount
     
-    # needed for assertEquals()
     def __eq__(self, other) -> bool:
         return self.equals(other)
-
-    def dollar(self, amount):
-        return Dollar(amount)
 
     def equals(self, object) -> bool:
         a = self
@@ -21,13 +17,18 @@ class Money:
         return self.amount == object.amount and \
             type(a) == type(b)
 
+    @staticmethod
+    def dollar(amount):
+        return Dollar(amount)
+
+    @staticmethod
+    def franc(amount):
+        return Franc(amount)
 
 class Dollar(Money):
     def times(self, multiplier):
-        return Dollar(self.amount * multiplier)    
-    
+        return Dollar(self.amount * multiplier) 
 
-class Franc(Money):
+class Franc(Money):     
     def times(self, multiplier):
         return Franc(self.amount * multiplier)    
-    
